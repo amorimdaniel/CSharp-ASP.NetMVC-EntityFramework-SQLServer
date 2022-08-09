@@ -1,23 +1,25 @@
-﻿<div class="text-center">
+﻿@model ContatoModel
+
+<div class="text-center">
 
     <h1 class="display-4">Criar contato</h1>
 
 </div>
 
-<form>
+<form asp-controller="contato" asp-action="Criar" method="post">
     <div class="mb-3">
         <label for="nome">Nome</label>
-        <input type="text" class="form-control" placeholder="Digite o nome do contato">
+        <input type="text" asp-for="Nome" class="form-control" placeholder="Digite o nome do contato">
     </div>
 
     <div class="mb-3">
         <label for="email">Email</label>
-        <input type="text" class="form-control" placeholder="Digite o email do contato">
+        <input type="text" asp-for="Email" class="form-control" placeholder="Digite o email do contato">
     </div>
 
     <div class="mb-3">
         <label for="celular">Celular</label>
-        <input type="text" class="form-control" placeholder="Digite o celular do contato">
+        <input type="text" asp-for="Celular" class="form-control" placeholder="Digite o celular do contato">
     </div>
 
     <button type="submit" class="btn btn-primary btn-block">Adicionar</button>
