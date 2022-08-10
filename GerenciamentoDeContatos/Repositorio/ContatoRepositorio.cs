@@ -43,5 +43,15 @@ namespace GerenciamentoDeContatos.Repositorio
             _bancoContext.SaveChanges();
             return contatoDB;
         }
+
+        public bool Apagar(int id)
+        {
+            ContatoModel contatoDB = ListarPorId(id);
+            if (contatoDB == null) { throw new Exception("Erro na ´deleção"); }
+
+            _bancoContext.Contatos.Remove(contatoDB);
+            _bancoContext.SaveChanges();
+            return true;
+        }
     }
 }
