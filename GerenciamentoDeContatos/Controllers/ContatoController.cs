@@ -18,7 +18,7 @@ namespace GerenciamentoDeContatos.Controllers
 
         public IActionResult Index()
         {
-           List<ContatoModel> contatos = _contatoRepositorio.BuscarTodos();
+            List<ContatoModel> contatos = _contatoRepositorio.BuscarTodos();
             return View(contatos);
         }
         public IActionResult Criar()
@@ -26,7 +26,7 @@ namespace GerenciamentoDeContatos.Controllers
             return View();
         }
         public IActionResult Editar(int id)
-        { 
+        {
             ContatoModel contato = _contatoRepositorio.ListarPorId(id);
             return View(contato);
         }
@@ -44,14 +44,23 @@ namespace GerenciamentoDeContatos.Controllers
         [HttpPost]
         public IActionResult Criar(ContatoModel contato)
         {
-            _contatoRepositorio.Adicionar(contato);
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                _contatoRepositorio.Adicionar(contato);
+                return RedirectToAction("Index");
+            }
+            return View(contato);
         }
         [HttpPost]
-        public IActionResult Alterar (ContatoModel contato)
+        public IActionResult Alterar(ContatoModel contato)
         {
-            _contatoRepositorio.Atualizar(contato);
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                _contatoRepositorio.Atualizar(contato);
+                return RedirectToAction("Index");
+            }
+
+            return View("Criar", contato);
         }
 
 
