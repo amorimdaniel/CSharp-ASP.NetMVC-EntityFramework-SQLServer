@@ -50,7 +50,7 @@ namespace GerenciamentoDeContatos.Controllers
                 }
                 return RedirectToAction("Index");
             }
-            catch(System.Exception erro)
+            catch(Exception erro)
             {
                 TempData["MensagemErro"] = $"Não foi possível apagar, tente novamente, ERRO: {erro.Message}";
                 return RedirectToAction("Index");
@@ -71,7 +71,7 @@ namespace GerenciamentoDeContatos.Controllers
                 }
                 return View(contato);
             }
-            catch (System.Exception erro)
+            catch (Exception erro)
             {
                 TempData["MensagemErro"] = $"Não foi possível cadastrar, tente novamente, ERRO: {erro.Message}";
                 return RedirectToAction("Index");
@@ -97,7 +97,5 @@ namespace GerenciamentoDeContatos.Controllers
                 return RedirectToAction("Index");
             }
         }
-
-
     }
 }

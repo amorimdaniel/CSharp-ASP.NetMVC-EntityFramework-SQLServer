@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GerenciamentoDeContatos.Models
 {
-    public class UsuarioModel
+    public class UsuarioSemSenhaModel
     {
         public int Id { get; set; }
 
@@ -17,11 +17,7 @@ namespace GerenciamentoDeContatos.Models
         [EmailAddress(ErrorMessage = "E-mail informado inválido")]
         [Required(ErrorMessage = "Digite o e-mail do contato")]
         public string  Email { get; set; }
-        [Required(ErrorMessage = "Informe perfil do usuário")]
+        [Required(ErrorMessage ="Informe perfil do usuário")]
         public PerfilEnum? Perfil { get; set; }
-        [Required(ErrorMessage = "Digite a senha do usário")]
-        public string Senha { get; set; }
-        public DateTime DataCadastro { get; set; }
-        public DateTime? DataAtualizacao { get; set; }
     }
 }
