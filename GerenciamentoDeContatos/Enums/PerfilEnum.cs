@@ -8,6 +8,6 @@ namespace GerenciamentoDeContatos.Enums
     public enum PerfilEnum
     {
         Admin = 1,
-        Padrao =2,
+        Padrão =2,
     }
 }
