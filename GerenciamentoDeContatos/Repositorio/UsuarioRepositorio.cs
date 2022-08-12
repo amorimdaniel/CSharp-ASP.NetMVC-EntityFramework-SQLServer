@@ -50,7 +50,7 @@ namespace GerenciamentoDeContatos.Repositorio
         public bool Apagar(int id)
         {
             UsuarioModel usuarioDB = ListarPorId(id);
-            if (usuarioDB == null) { throw new Exception("Erro na ´deleção"); }
+            if (usuarioDB == null) { throw new Exception("Erro na deleção"); }
 
             _bancoContext.Usuarios.Remove(usuarioDB);
             _bancoContext.SaveChanges();

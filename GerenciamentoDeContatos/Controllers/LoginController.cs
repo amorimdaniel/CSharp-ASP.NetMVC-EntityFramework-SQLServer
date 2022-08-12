@@ -1,4 +1,5 @@
-﻿using GerenciamentoDeContatos.Models;
+﻿using GerenciamentoDeContatos.Helper;
+using GerenciamentoDeContatos.Models;
 using GerenciamentoDeContatos.Repositorio;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -10,15 +11,24 @@ namespace GerenciamentoDeContatos.Controllers
 {
     public class LoginController : Controller
     {
-        private IUsuarioRepositorio _usuarioRepositorio;
+        private readonly IUsuarioRepositorio _usuarioRepositorio;
+        private readonly ISessao _sessao;
 
-        public LoginController(IUsuarioRepositorio usuarioRepositorio)
+        public LoginController(IUsuarioRepositorio usuarioRepositorio, ISessao sessao)
         {
             _usuarioRepositorio = usuarioRepositorio;
+            _sessao = sessao;
         }
         public IActionResult Index()
         {
+            if (_sessao.BuscarSessaoDoUsuario() != null) return RedirectToAction("Index", "Home");
             return View();
+        }
+
+        public IActionResult Sair()
+        {
+            _sessao.RemoverSessaoDoUsuario();
+            return RedirectToAction("Index","Login");
         }
 
         [HttpPost]
@@ -35,6 +45,8 @@ namespace GerenciamentoDeContatos.Controllers
                     {
                         if (usuario.SenhaValida(loginModel.Senha))
                         {
+                            _sessao.CriarSessaoDoUsuario(usuario);
+
                             return RedirectToAction("Index", "Home");
                         }
 
