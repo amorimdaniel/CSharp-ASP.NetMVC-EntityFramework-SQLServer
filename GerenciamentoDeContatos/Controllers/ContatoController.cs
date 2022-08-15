@@ -1,4 +1,5 @@
-﻿using GerenciamentoDeContatos.Models;
+﻿using GerenciamentoDeContatos.Filters;
+using GerenciamentoDeContatos.Models;
 using GerenciamentoDeContatos.Repositorio;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace GerenciamentoDeContatos.Controllers
 {
+    [PaginaParaUsuarioLogado]
     public class ContatoController : Controller
     {
         private readonly IContatoRepositorio _contatoRepositorio;
