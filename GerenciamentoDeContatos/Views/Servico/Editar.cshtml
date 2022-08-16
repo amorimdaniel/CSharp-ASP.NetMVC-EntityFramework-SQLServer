@@ -1,4 +1,4 @@
-﻿@model PecaModel
+﻿@model ServicoModel
 @{
     ViewData["Title"] = "Editar peca";
 }
@@ -6,11 +6,11 @@
 
 <div class="text-center">
 
-    <h1 class="display-4">Editar peça</h1>
+    <h1 class="display-4">Editar serviço</h1>
 
 </div>
 
-<form asp-controller="Peca" asp-action="Alterar" method="post">
+<form asp-controller="Servico" asp-action="Alterar" method="post">
 
     <input type="hidden" asp-for="Id" />
     <div class="mb-3">
@@ -34,5 +34,5 @@
 
     <button type="submit" class="btn btn-primary btn-block">Alterar</button>
 
-    <a class="btn btn-secondary btn-block" asp-controller="Peca" asp-action="Index" role="button">Voltar</a>
+    <a class="btn btn-secondary btn-block" asp-controller="Servico" asp-action="Index" role="button">Voltar</a>
 </form>

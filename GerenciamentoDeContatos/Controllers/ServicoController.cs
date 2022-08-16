@@ -48,5 +48,56 @@ namespace GerenciamentoDeContatos.Controllers
             }
 
         }
+        public IActionResult ApagarConfirmacao(int id)
+        {
+            ServicoModel servico = _servicoRepositorio.ListarPorId(id);
+            return View(servico);
+        }
+        public IActionResult Apagar(int id)
+        {
+            try
+            {
+                bool apagado = _servicoRepositorio.Apagar(id);
+                if (apagado)
+                {
+                    TempData["MensagemSucesso"] = "Serviço apagado com sucesso";
+                }
+                else
+                {
+                    TempData["MensagemErro"] = "Não foi possível apagar seu contato";
+                }
+                return RedirectToAction("Index");
+            }
+            catch (Exception erro)
+            {
+                TempData["MensagemErro"] = $"Não foi possível apagar, tente novamente, ERRO: {erro.Message}";
+                return RedirectToAction("Index");
+            }
+        }
+        public IActionResult Editar(int id)
+        {
+            ServicoModel servico = _servicoRepositorio.ListarPorId(id);
+            return View(servico);
+        }
+
+        [HttpPost]
+        public IActionResult Alterar(ServicoModel servico)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    _servicoRepositorio.Atualizar(servico);
+                    TempData["MensagemSucesso"] = "Serviço atualizado com sucesso";
+                    return RedirectToAction("Index");
+                }
+                return View("Editar", servico);
+            }
+            catch (System.Exception erro)
+            {
+                TempData["MensagemErro"] = $"Não foi possível atualizar, tente novamente, ERRO: {erro.Message}";
+                return RedirectToAction("Index");
+            }
+        }
     }
 }

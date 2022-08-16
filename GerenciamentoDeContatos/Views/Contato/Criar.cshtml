@@ -6,26 +6,26 @@
 
 <div class="text-center">
 
-    <h1 class="display-4">Criar contato</h1>
+    <h1 class="display-4">Criar cliente</h1>
 
 </div>
 
 <form asp-controller="contato" asp-action="Criar" method="post">
     <div class="mb-3">
         <label for="nome">Nome</label>
-        <input type="text" asp-for="Nome" class="form-control" placeholder="Digite o nome do contato">
+        <input type="text" asp-for="Nome" class="form-control" placeholder="Digite o nome do cliente">
         @Html.ValidationMessageFor(x => x.Nome)
     </div>
 
     <div class="mb-3">
         <label for="email">Email</label>
-        <input type="text" asp-for="Email" class="form-control" placeholder="Digite o email do contato">
+        <input type="text" asp-for="Email" class="form-control" placeholder="Digite o email do cliente">
         @Html.ValidationMessageFor(x => x.Email)
     </div>
 
     <div class="mb-3">
         <label for="celular">Celular</label>
-        <input type="text" asp-for="Celular" class="form-control" placeholder="Digite o celular do contato">
+        <input type="text" asp-for="Celular" class="form-control" placeholder="Digite o celular do cliente">
         @Html.ValidationMessageFor(x => x.Celular)
     </div>
 
