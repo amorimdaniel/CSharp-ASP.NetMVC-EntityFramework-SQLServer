@@ -34,6 +34,7 @@ namespace GerenciamentoDeContatos
 
             services.AddScoped<IContatoRepositorio, ContatoRepositorio>();
             services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
+            services.AddScoped<IServicoRepositorio, ServicoRepositorio>();
             services.AddScoped<IPecaRepositorio, PecaRepositorio>();
             services.AddScoped<ISessao, Sessao>();
 

@@ -3,24 +3,22 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Globalization;
 
 namespace GerenciamentoDeContatos.Models
 {
-    public class PecaModel
+    public class ServicoModel
     {
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "Digite o nome da peça")]
+        [Required(ErrorMessage = "Digite o nome do serviço")]
         public string Nome { get; set; }
 
-        [Display(Name = "Digite o preço")]
-        [DisplayFormat(DataFormatString = "{f2}")]
+        [Required(ErrorMessage = "Digite o preço do serviço")]
         public double Preco { get; set; }
 
-        [Required(ErrorMessage = "Digite a descrição da peça")]
+        [Required(ErrorMessage = "Digite a descrição do serviço")]
         public string Descricao { get; set; }
 
+
     }
-    
 }

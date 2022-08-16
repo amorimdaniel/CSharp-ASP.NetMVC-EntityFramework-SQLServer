@@ -72,8 +72,8 @@ namespace GerenciamentoDeContatos.Controllers
         }
         public IActionResult ApagarConfirmacao(int id)
         {
-            PecaModel contato = _pecaRepositorio.ListarPorId(id);
-            return View(contato);
+            PecaModel peca = _pecaRepositorio.ListarPorId(id);
+            return View(peca);
         }
 
         [HttpPost]

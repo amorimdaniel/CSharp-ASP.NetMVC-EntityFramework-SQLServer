@@ -1,0 +1,35 @@
+﻿@model ServicoModel
+@{
+    ViewData["Title"] = "Adicionar serviço";
+}
+
+
+<div class="text-center">
+
+    <h1 class="display-4">Adicionar serviço</h1>
+
+</div>
+
+<form asp-controller="Servico" asp-action="Criar" method="post">
+    <div class="mb-3">
+        <label for="nome">Nome</label>
+        <input type="text" asp-for="Nome" class="form-control" placeholder="Digite o nome do serviço">
+        @Html.ValidationMessageFor(x => x.Nome)
+    </div>
+
+    <div class="mb-3">
+        <label for="preco">Preço</label>
+        <input type="text" asp-for="Preco" class="form-control" placeholder="Digite o preço do serviço">
+        @Html.ValidationMessageFor(x => x.Preco)
+    </div>
+
+    <div class="mb-3">
+        <label for="descricao">Descrição</label>
+        <input type="text" asp-for="Descricao" class="form-control" placeholder="Digite a descrição do serviço">
+        @Html.ValidationMessageFor(x => x.Descricao)
+    </div>
+
+    <button type="submit" class="btn btn-primary btn-block">Adicionar</button>
+
+    <a class="btn btn-secondary btn-block" asp-controller="Servico" asp-action="Index" role="button">Voltar</a>
+</form>

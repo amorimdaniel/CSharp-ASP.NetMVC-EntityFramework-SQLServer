@@ -6,6 +6,7 @@ $(document).ready(function () {
     getDataTable('#table-contatos');
     getDataTable('#table-usuarios');
     getDataTable('#table-pecas');
+    getDataTable('#table-servicos');
 })
 
     function getDataTable(id) {
