@@ -10,38 +10,49 @@ using System.Threading.Tasks;
 namespace GerenciamentoDeContatos.Controllers
 {
     [PaginaParaUsuarioLogado]
-    public class ContatoController : Controller
+    public class PecaController : Controller
     {
-        private readonly IContatoRepositorio _contatoRepositorio;
-        public ContatoController(IContatoRepositorio contatoRepositorio)
-        {
-            _contatoRepositorio = contatoRepositorio;
-        }
 
+        private readonly IPecaRepositorio _pecaRepositorio;
+        public PecaController(IPecaRepositorio pecaRepositorio)
+        {
+            _pecaRepositorio = pecaRepositorio;
+        }
         public IActionResult Index()
         {
-            List<ContatoModel> contatos = _contatoRepositorio.BuscarTodos();
+            List<PecaModel> contatos = _pecaRepositorio.BuscarTodos();
             return View(contatos);
         }
         public IActionResult Criar()
         {
             return View();
         }
-        public IActionResult Editar(int id)
+
+        [HttpPost]
+        public IActionResult Criar(PecaModel peca)
         {
-            ContatoModel contato = _contatoRepositorio.ListarPorId(id);
-            return View(contato);
-        }
-        public IActionResult ApagarConfirmacao(int id)
-        {
-            ContatoModel contato = _contatoRepositorio.ListarPorId(id);
-            return View(contato);
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    _pecaRepositorio.Adicionar(peca);
+                    TempData["MensagemSucesso"] = "Peça cadastrada com sucesso";
+                    return RedirectToAction("Index");
+                }
+                return View(peca);
+            }
+            catch (Exception erro)
+            {
+                TempData["MensagemErro"] = $"Não foi possível cadastrar, tente novamente, ERRO: {erro.Message}";
+                return RedirectToAction("Index");
+            }
+
         }
         public IActionResult Apagar(int id)
         {
             try
             {
-                bool apagado = _contatoRepositorio.Apagar(id);
+                bool apagado = _pecaRepositorio.Apagar(id);
                 if (apagado)
                 {
                     TempData["MensagemSucesso"] = "Contato apagado com sucesso";
@@ -52,53 +63,43 @@ namespace GerenciamentoDeContatos.Controllers
                 }
                 return RedirectToAction("Index");
             }
-            catch(Exception erro)
+            catch (Exception erro)
             {
                 TempData["MensagemErro"] = $"Não foi possível apagar, tente novamente, ERRO: {erro.Message}";
                 return RedirectToAction("Index");
             }
 
         }
-
-        [HttpPost]
-        public IActionResult Criar(ContatoModel contato)
+        public IActionResult ApagarConfirmacao(int id)
         {
-            try
-            {
-                if (ModelState.IsValid)
-                {
-                    _contatoRepositorio.Adicionar(contato);
-                    TempData["MensagemSucesso"] = "Contato cadastrado com sucesso";
-                    return RedirectToAction("Index");
-                }
-                return View(contato);
-            }
-            catch (Exception erro)
-            {
-                TempData["MensagemErro"] = $"Não foi possível cadastrar, tente novamente, ERRO: {erro.Message}";
-                return RedirectToAction("Index");
-            }
-
+            PecaModel contato = _pecaRepositorio.ListarPorId(id);
+            return View(contato);
         }
 
         [HttpPost]
-        public IActionResult Alterar(ContatoModel contato)
+        public IActionResult Alterar(PecaModel peca)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    _contatoRepositorio.Atualizar(contato);
-                    TempData["MensagemSucesso"] = "Contato atualizado com sucesso";
+                    _pecaRepositorio.Atualizar(peca);
+                    TempData["MensagemSucesso"] = "Peça atualizada com sucesso";
                     return RedirectToAction("Index");
                 }
-                return View("Editar", contato);
+                return View("Editar", peca);
             }
             catch (System.Exception erro)
             {
                 TempData["MensagemErro"] = $"Não foi possível atualizar, tente novamente, ERRO: {erro.Message}";
                 return RedirectToAction("Index");
             }
+        }
+
+        public IActionResult Editar(int id)
+        {
+            PecaModel peca = _pecaRepositorio.ListarPorId(id);
+            return View(peca);
         }
     }
 }
