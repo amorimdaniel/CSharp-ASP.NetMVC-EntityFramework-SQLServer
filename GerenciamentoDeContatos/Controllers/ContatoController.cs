@@ -1,4 +1,5 @@
 ﻿using GerenciamentoDeContatos.Filters;
+using GerenciamentoDeContatos.Helper;
 using GerenciamentoDeContatos.Models;
 using GerenciamentoDeContatos.Repositorio;
 using Microsoft.AspNetCore.Mvc;
@@ -13,14 +14,17 @@ namespace GerenciamentoDeContatos.Controllers
     public class ContatoController : Controller
     {
         private readonly IContatoRepositorio _contatoRepositorio;
-        public ContatoController(IContatoRepositorio contatoRepositorio)
+        private readonly ISessao _sessao;
+        public ContatoController(IContatoRepositorio contatoRepositorio, ISessao sessao)
         {
             _contatoRepositorio = contatoRepositorio;
+            _sessao = sessao;
         }
 
         public IActionResult Index()
         {
-            List<ContatoModel> contatos = _contatoRepositorio.BuscarTodos();
+            UsuarioModel usuarioLogado = _sessao.BuscarSessaoDoUsuario();
+            List<ContatoModel> contatos = _contatoRepositorio.BuscarTodos(usuarioLogado.Id);
             return View(contatos);
         }
         public IActionResult Criar()
@@ -67,6 +71,9 @@ namespace GerenciamentoDeContatos.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    UsuarioModel usuarioLogado = _sessao.BuscarSessaoDoUsuario();
+                    contato.UsuarioId = usuarioLogado.Id;
+
                     _contatoRepositorio.Adicionar(contato);
                     TempData["MensagemSucesso"] = "Contato cadastrado com sucesso";
                     return RedirectToAction("Index");
@@ -88,6 +95,8 @@ namespace GerenciamentoDeContatos.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    UsuarioModel usuarioLogado = _sessao.BuscarSessaoDoUsuario();
+                    contato.UsuarioId = usuarioLogado.Id;
                     _contatoRepositorio.Atualizar(contato);
                     TempData["MensagemSucesso"] = "Contato atualizado com sucesso";
                     return RedirectToAction("Index");

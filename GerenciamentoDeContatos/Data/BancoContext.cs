@@ -1,4 +1,5 @@
-﻿using GerenciamentoDeContatos.Models;
+﻿using GerenciamentoDeContatos.Data.Map;
+using GerenciamentoDeContatos.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -18,5 +19,11 @@ namespace GerenciamentoDeContatos.Data
         public DbSet<UsuarioModel> Usuarios { get; set; }
         public DbSet<PecaModel> Pecas { get; set; }
         public DbSet<ServicoModel> Servicos { get; set; }
+        
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfiguration(new ContatoMap());
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }
